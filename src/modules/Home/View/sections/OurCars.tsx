@@ -1,8 +1,8 @@
 // Fake DB
-import carsDb from "../../db/carsDb";
+import carsDb from "../../../../db/carsDb";
 
 // Components
-import CarCard from "../../components/CarCard";
+import CarCard from "../../../../components/CarCard";
 
 const OurCars = () => {
   return (

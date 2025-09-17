@@ -2,13 +2,13 @@
 import { Routes, Route } from "react-router-dom";
 
 // Pages
-import Home from "./modules/Home";
-import Shop from "./modules/Shop";
-import CarDetails from "./modules/CarDetails";
-import Login from "./modules/Login";
-import Register from "./modules/Register";
-import Cart from "./modules/Cart";
-import NotFound from "./modules/NotFound";
+import Home from "./Modules/Home/View/Home";
+import Shop from "./Modules/Shop";
+import CarDetails from "./Modules/CarDetails";
+import Login from "./Modules/Login";
+import Register from "./Modules/Register";
+import Cart from "./Modules/Cart";
+import NotFound from "./Modules/Additionals/View/NotFound";
 
 // Components
 import Header from "./components/Header";

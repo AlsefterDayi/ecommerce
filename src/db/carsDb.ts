@@ -6,8 +6,49 @@ import car5 from "../assets/images/cars/car-5.png";
 import car6 from "../assets/images/cars/car-6.png";
 import car7 from "../assets/images/cars/car-7.png";
 import car8 from "../assets/images/cars/car-8.png";
+import bmw from "../assets/images/bmw.png";
+import cysler from "../assets/images/cysler.png";
 
-const carsDb = [
+interface iHeroCars{
+  id: number;
+  edition: string;
+  name: string;
+  pack: string;
+  packSeries: string;
+  carImg: string;
+  monthlyPrice: string;
+}
+
+export const heroCars : iHeroCars[] = [
+  {
+    id: 1,
+    edition: "Limited edition",
+    name: "BMW X6",
+    pack: "Cayman",
+    packSeries: "S",
+    carImg: bmw,
+    monthlyPrice: "225",
+  },
+  {
+    id: 2,
+    edition: "Limited edition",
+    name: "Cysler",
+    pack: "Sport",
+    packSeries: "S",
+    carImg: cysler,
+    monthlyPrice: "245",
+  },
+];
+
+interface iCarsDb {
+  id: number;
+  title: string;
+  category: string;
+  price: string;
+  carImg: string;
+}
+
+const carsDb : iCarsDb[] = [
   {
     id: 1,
     title: "2015 Toyota Elantra 2.5L",
