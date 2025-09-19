@@ -1,10 +1,25 @@
 // Fake DB
-import carsDb from "../../../../db/carsDb";
+import carsDb, { CarCategory, type iCarsDb } from "../../../../db/carsDb";
 
 // Components
 import CarCard from "../../../../components/CarCard";
+import { useEffect, useState } from "react";
+import { HomeService } from "../../Service/HomeService";
 
 const OurCars = () => {
+  const [categories, setCategories] = useState<CarCategory[]>([]);
+  const [cars, setCars] = useState<iCarsDb[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<CarCategory | null>(null);
+  const getData = () => {
+    const res = HomeService.getCarsByCategory(selectedCategory);
+    setCars(res);
+    const cate = HomeService.getCategories();
+    setCategories(cate);
+  }
+  useEffect(() => {
+    getData();
+    
+  }, [selectedCategory]);
   return (
     <section className="ourCarsSection">
       <div className="container">
@@ -12,16 +27,16 @@ const OurCars = () => {
           <div className="ourCarsHead">
             <h2>OUR CARS</h2>
             <ul className="categoryList">
-              <li className="categoryItem active">All</li>
-              <li className="categoryItem">Hatchback</li>
-              <li className="categoryItem">Sedan</li>
-              <li className="categoryItem">Coupe</li>
-              <li className="categoryItem">Pickup Truck</li>
-              <li className="categoryItem">Sport Cars</li>
+              <li className={`categoryItem ${selectedCategory === null ? 'active' : ''}`} onClick={() => setSelectedCategory(null)}>All</li>
+              {categories.map((category, index) => (
+                <li className={`categoryItem ${selectedCategory === category ? 'active' : ''}`} key={index} onClick={() => setSelectedCategory(category)}>
+                  {category}
+                </li>
+              ))}
             </ul>
           </div>
           <div className="carsBox">
-            {carsDb.map((item) => (
+            {cars.map((item) => (
               <CarCard data={item} key={item.id} />
             ))}
           </div>

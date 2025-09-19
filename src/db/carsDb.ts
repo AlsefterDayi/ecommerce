@@ -9,7 +9,7 @@ import car8 from "../assets/images/cars/car-8.png";
 import bmw from "../assets/images/bmw.png";
 import cysler from "../assets/images/cysler.png";
 
-interface iHeroCars{
+interface iHeroCars {
   id: number;
   edition: string;
   name: string;
@@ -19,7 +19,7 @@ interface iHeroCars{
   monthlyPrice: string;
 }
 
-export const heroCars : iHeroCars[] = [
+export const heroCars: iHeroCars[] = [
   {
     id: 1,
     edition: "Limited edition",
@@ -40,68 +40,76 @@ export const heroCars : iHeroCars[] = [
   },
 ];
 
-interface iCarsDb {
+export interface iCarsDb {
   id: number;
   title: string;
-  category: string;
+  category: CarCategory;
   price: string;
   carImg: string;
 }
 
-const carsDb : iCarsDb[] = [
+export enum CarCategory {
+  HATCHBACK = "Hatchback",
+  SPORTCARS = "Sport Cars",
+  SEDAN = "Sedan",
+  COUPE = "Coupe",
+  PICKUPTRUCK = "Pickup Truck",
+}
+
+const carsDb: iCarsDb[] = [
   {
     id: 1,
     title: "2015 Toyota Elantra 2.5L",
-    category: "Hatchback",
+    category: CarCategory.HATCHBACK,
     price: "5,500",
     carImg: car1,
   },
   {
     id: 2,
     title: "Chevrolet Camaro 2018",
-    category: "Sport Cars",
+    category: CarCategory.SPORTCARS,
     price: "9,500",
     carImg: car2,
   },
   {
     id: 3,
     title: "2016 Mini Couper",
-    category: "Sedan",
+    category: CarCategory.SEDAN,
     price: "33,400",
     carImg: car3,
   },
   {
     id: 4,
     title: "2013 Acura Sport Version",
-    category: "Hatchback",
+    category: CarCategory.HATCHBACK,
     price: "5,600",
     carImg: car4,
   },
   {
     id: 5,
     title: "Ford Mustang",
-    category: "Coupe",
+    category: CarCategory.COUPE,
     price: "12,000",
     carImg: car5,
   },
   {
     id: 6,
     title: "2012 Chevrolet Pick Truck 3.5L",
-    category: "Pickup Truck",
+    category: CarCategory.PICKUPTRUCK,
     price: "7,700",
     carImg: car6,
   },
   {
     id: 7,
     title: "2012 Toyota Pickup Truck i7 ",
-    category: "Pickup Truck",
+    category: CarCategory.PICKUPTRUCK,
     price: "4,250",
     carImg: car7,
   },
   {
     id: 8,
     title: "2019 Toyota Camry SE 350 ",
-    category: "Sedan",
+    category: CarCategory.SEDAN,
     price: "5,050",
     carImg: car8,
   },
