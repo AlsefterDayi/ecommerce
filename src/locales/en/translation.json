@@ -1,0 +1,14 @@
+{
+  "header": {
+    "logout": "Logout",
+    "login": "Login"
+  },
+  "nav": {
+    "home": "Home",
+    "shop": "Shop"
+  },
+  "footer": {
+    "rights": "All rights reserved  <spanName>{{replaceName}}</spanName> © {{replaceDate}}",
+    "followUs": "Follow Us"
+  }
+}

@@ -1,15 +1,18 @@
 // Images
 import { Link } from "react-router-dom";
 
+// Images
+
 // React icons
 import { SlSpeedometer } from "react-icons/sl";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-
+// import required modules
+import { Autoplay, Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { heroCars } from "../../../../db/carsDb";
+import "swiper/css/pagination";
+import { sliderData } from "../../../../db/carsDb";
 
 const Hero = () => {
   return (
@@ -23,26 +26,30 @@ const Hero = () => {
             disableOnInteraction: false,
           }}
           loop
-          modules={[Autoplay, Pagination, Navigation]}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Autoplay, Pagination]}
           className="mySwiper"
         >
-          {heroCars.map((car) => (
-            <SwiperSlide key={car.id}>
+          {sliderData.map((item) => (
+            <SwiperSlide key={item.id}>
               <div className="hero">
                 <div className="heroImg">
-                  <img src={car.carImg} alt="bmw" />
+                  <img src={item.image} alt={item.name} />
                 </div>
                 <div className="heroInfo">
-                  <p className="slideInfo">{car.edition}</p>
-                  <h2 className="slideTitle">{car.name}</h2>
+                  <p className="slideInfo">{item.edition}</p>
+                  <h2 className="slideTitle">{item.name}</h2>
                   <p className="slideDetails">
-                    {car.pack} <span>{car.packSeries}</span>
+                    {item.pack} <span>{item.packSeries}</span>
                   </p>
                   <p className="price">
-                    ${car.monthlyPrice} <span>/</span> <span>Month</span>
+                    {item.monthlyPrice} AZN <span>/</span> <span>Month</span>
                   </p>
                   <p className="priceDetails">
-                    $0 first payment paid by Bmw up to ${car.monthlyPrice}.
+                    0 AZN first payment paid by Bmw up to {item.monthlyPrice}{" "}
+                    AZN.
                   </p>
                   <p className="priceDetails">Taxes, title and fees extra. </p>
                   <div className="btns">

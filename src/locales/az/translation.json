@@ -1,0 +1,14 @@
+{
+  "header": {
+    "logout": "Çıxış",
+    "login": "Giriş"
+  },
+  "nav": {
+    "home": "Ana Səhifə",
+    "shop": "Mağaza"
+  },
+  "footer": {
+    "rights": "Bütün hüquqlar qorunur <spanName>{{replaceName}}</spanName> © {{replaceDate}}",
+    "followUs": "Bizi izləyin"
+  }
+}

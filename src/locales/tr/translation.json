@@ -1,0 +1,14 @@
+{
+  "header": {
+    "logout": "Çıkış",
+    "login": "Giriş"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "shop": "Alışveriş"
+  },
+  "footer": {
+    "rights": "Tüm hakları saklıdır <spanName>{{replaceName}}</spanName> © {{replaceDate}}",
+    "followUs": "Bizi Takip Edin"
+  }
+}

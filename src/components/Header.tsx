@@ -13,11 +13,22 @@ import {
   FaWindowClose,
   FaSignOutAlt,
 } from "react-icons/fa";
+import pagesList from "../constants/pagesList";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { removeFromCart } from "../redux/slices/productSlice";
+import CustomModal from "./CustomModal";
+import type { IProduct } from "../Modules/Shop/Models/ShopModels";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
-  // Loal states
-  const [cartIsOpen, setCartIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector((state) => state.productSlice.cart);
+  const cartCount = useAppSelector((state) => state.productSlice.cartCount);
+  const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const [cartIsOpen, setCartIsOpen] = useState(false);
+  const t = useTranslation().t;
   return (
     <header className="header">
       <div className="container">
@@ -29,26 +40,28 @@ const Header = () => {
           </div>
           <nav className="navBar">
             <ul className="navList">
-              <li className="navItem">
-                <NavLink to="/">Home</NavLink>
-              </li>
-              <li className="navItem">
-                <NavLink to="/shop">Shop</NavLink>
-              </li>
+              {pagesList
+                .filter((item) => item.for_navigation)
+                .map((page) => (
+                  
+                  <li className="navItem" key={page.id}>
+                    <NavLink to={page.path}>{t(`nav.${page.id }`) }</NavLink>
+                  </li>
+                ))}
             </ul>
           </nav>
           <div className="userArea">
             <div className="cart" onClick={() => setCartIsOpen(!cartIsOpen)}>
-              <span className="count">0</span>
+              <span className="count">{cartCount}</span>
               <FaShoppingCart />
             </div>
             <button className="logOut">
-              LOGOUT
+              {t("header.logout")}
               <FaSignOutAlt />
             </button>
             <Link className="login" to="/login">
               <FaUserCircle />
-              <span>LOGIN</span>
+              <span>{t("header.login")}</span>
             </Link>
           </div>
         </div>
@@ -59,36 +72,59 @@ const Header = () => {
           <FaWindowClose onClick={() => setCartIsOpen(false)} />
         </div>
         <ul className="cartList">
-          <div className="empty">
-            <p>Cart is Empty</p>
-            <Link to="/shop" onClick={() => setCartIsOpen(false)}>
-              Buy new car
-            </Link>
-          </div>
-          <li className="cartItem">
-            <div className="carImg">
-              <img src="" alt="car-img" />
+          {cart.length === 0 && (
+            <div className="empty">
+              <p>Cart is Empty</p>
+              <Link to="/shop" onClick={() => setCartIsOpen(false)}>
+                Buy new car
+              </Link>
             </div>
-            <div className="carInfo">
-              <p className="carTitle">Car name</p>
-              <div className="nums">
-                <p className="carPrice">Price: 0.00$</p>
-                <p className="quantity">Quantity: 1</p>
+          )}
+          {cart.map((item) => (
+            <li className="cartItem">
+              <div className="carImg">
+                <img src={item.productImage} alt={item.name} />
               </div>
-            </div>
-            <div className="remove">
-              <p>Remove Car</p>
-            </div>
-          </li>
-          <Link to="/cart" onClick={() => setCartIsOpen(false)}>
-            View on Cart
-          </Link>
+              <div className="carInfo">
+                <p className="carTitle">{item.name}</p>
+                <div className="nums">
+                  <p className="carPrice">Price: {item.price} AZN</p>
+                  <p className="quantity">Quantity: {item.quantity}</p>
+                </div>
+              </div>
+              <div
+                className="remove"
+                onClick={() => {
+                  setSelectedProduct(item);
+                  setModalIsOpen(true);
+                }}
+              >
+                <p>Remove Car</p>
+              </div>
+            </li>
+          ))}
+          {cart.length !== 0 && (
+            <Link to="/cart" onClick={() => setCartIsOpen(false)}>
+              View on Cart
+            </Link>
+          )}
         </ul>
       </div>
       <div
         className={`overlay ${cartIsOpen && "isOpen"}`}
         onClick={() => setCartIsOpen(false)}
       ></div>
+      <CustomModal
+        title="Silmeye eminsinizmi ?"
+        is_question_modal
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        onSubmit={() => {
+          dispatch(removeFromCart(selectedProduct?._id || ""));
+          setSelectedProduct(null);
+          setModalIsOpen(false);
+        }}
+      />
     </header>
   );
 };

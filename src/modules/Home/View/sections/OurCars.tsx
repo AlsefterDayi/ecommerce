@@ -1,5 +1,5 @@
 // Fake DB
-import carsDb, { CarCategory, type iCarsDb } from "../../../../db/carsDb";
+import { CarCategory, type ICarsDb } from "../../../../db/carsDb";
 
 // Components
 import CarCard from "../../../../components/CarCard";
@@ -7,19 +7,23 @@ import { useEffect, useState } from "react";
 import { HomeService } from "../../Service/HomeService";
 
 const OurCars = () => {
+  const [cars, setCars] = useState<ICarsDb[]>([]);
   const [categories, setCategories] = useState<CarCategory[]>([]);
-  const [cars, setCars] = useState<iCarsDb[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<CarCategory | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<CarCategory | null>(
+    null
+  );
+
   const getData = () => {
-    const res = HomeService.getCarsByCategory(selectedCategory);
+    const res = HomeService.getCars(selectedCategory);
     setCars(res);
     const cate = HomeService.getCategories();
     setCategories(cate);
-  }
+  };
+
   useEffect(() => {
     getData();
-    
   }, [selectedCategory]);
+
   return (
     <section className="ourCarsSection">
       <div className="container">
@@ -27,10 +31,21 @@ const OurCars = () => {
           <div className="ourCarsHead">
             <h2>OUR CARS</h2>
             <ul className="categoryList">
-              <li className={`categoryItem ${selectedCategory === null ? 'active' : ''}`} onClick={() => setSelectedCategory(null)}>All</li>
-              {categories.map((category, index) => (
-                <li className={`categoryItem ${selectedCategory === category ? 'active' : ''}`} key={index} onClick={() => setSelectedCategory(category)}>
-                  {category}
+              <li
+                className={`categoryItem ${!selectedCategory ? "active" : ""}`}
+                onClick={() => setSelectedCategory(null)}
+              >
+                All
+              </li>
+              {categories.map((item) => (
+                <li
+                  className={`categoryItem ${
+                    item === selectedCategory ? "active" : ""
+                  }`}
+                  key={item}
+                  onClick={() => setSelectedCategory(item)}
+                >
+                  {item}
                 </li>
               ))}
             </ul>

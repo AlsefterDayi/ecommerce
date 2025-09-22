@@ -5,11 +5,12 @@ export class HomeService {
     const data = carsDb.map((item) => item.category);
     return Array.from(new Set(data));
   }
-  static getCarsByCategory(category: CarCategory | null) {
-    if (!category) {
-      return carsDb;
+
+  static getCars(category: CarCategory | null) {
+    if (category) {
+      return carsDb.filter((item) => item.category === category);
     } else {
-      return carsDb.filter((car) => car.category === category);
+      return carsDb;
     }
   }
 }

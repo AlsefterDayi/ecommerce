@@ -9,38 +9,38 @@ import car8 from "../assets/images/cars/car-8.png";
 import bmw from "../assets/images/bmw.png";
 import cysler from "../assets/images/cysler.png";
 
-interface iHeroCars {
+interface ISliderData {
   id: number;
   edition: string;
   name: string;
   pack: string;
   packSeries: string;
-  carImg: string;
-  monthlyPrice: string;
+  monthlyPrice: number;
+  image: string;
 }
 
-export const heroCars: iHeroCars[] = [
+export const sliderData: ISliderData[] = [
   {
     id: 1,
-    edition: "Limited edition",
+    edition: "LIMITED EDITION",
     name: "BMW X6",
     pack: "Cayman",
     packSeries: "S",
-    carImg: bmw,
-    monthlyPrice: "225",
+    monthlyPrice: 225,
+    image: bmw,
   },
   {
     id: 2,
-    edition: "Limited edition",
+    edition: "PREMIUM EDITION",
     name: "Cysler",
     pack: "Sport",
-    packSeries: "S",
-    carImg: cysler,
-    monthlyPrice: "245",
+    packSeries: "A",
+    monthlyPrice: 340,
+    image: cysler,
   },
 ];
 
-export interface iCarsDb {
+export interface ICarsDb {
   id: number;
   title: string;
   category: CarCategory;
@@ -50,13 +50,13 @@ export interface iCarsDb {
 
 export enum CarCategory {
   HATCHBACK = "Hatchback",
-  SPORTCARS = "Sport Cars",
+  SPORT_CARS = "Sport Cars",
   SEDAN = "Sedan",
   COUPE = "Coupe",
-  PICKUPTRUCK = "Pickup Truck",
+  PICKUP_TRUCK = "Pickup",
 }
 
-const carsDb: iCarsDb[] = [
+const carsDb: ICarsDb[] = [
   {
     id: 1,
     title: "2015 Toyota Elantra 2.5L",
@@ -67,7 +67,7 @@ const carsDb: iCarsDb[] = [
   {
     id: 2,
     title: "Chevrolet Camaro 2018",
-    category: CarCategory.SPORTCARS,
+    category: CarCategory.SPORT_CARS,
     price: "9,500",
     carImg: car2,
   },
@@ -95,14 +95,14 @@ const carsDb: iCarsDb[] = [
   {
     id: 6,
     title: "2012 Chevrolet Pick Truck 3.5L",
-    category: CarCategory.PICKUPTRUCK,
+    category: CarCategory.PICKUP_TRUCK,
     price: "7,700",
     carImg: car6,
   },
   {
     id: 7,
     title: "2012 Toyota Pickup Truck i7 ",
-    category: CarCategory.PICKUPTRUCK,
+    category: CarCategory.PICKUP_TRUCK,
     price: "4,250",
     carImg: car7,
   },
