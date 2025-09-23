@@ -14,9 +14,9 @@ export interface IProductState {
 }
 
 const initialState: IProductState = {
-  cart: [],
-  cartCount: 0,
-  totalPrice: 0,
+  cart: JSON.parse(localStorage.getItem("basketItems") || "[]"),
+  cartCount: JSON.parse(localStorage.getItem("basketCount") || "0"),
+  totalPrice: JSON.parse(localStorage.getItem("basketTotalPrice") || "0"),
 };
 
 export const productSlice = createSlice({
@@ -28,11 +28,16 @@ export const productSlice = createSlice({
         (acc, curr) => acc + (curr.quantity || 0),
         0
       );
+      localStorage.setItem("basketCount", JSON.stringify(state.cartCount));
     },
     calculateCartTotalPrice: (state) => {
       state.totalPrice = state.cart.reduce(
         (acc, curr) => acc + curr.price * (curr.quantity || 0),
         0
+      );
+      localStorage.setItem(
+        "basketTotalPrice",
+        JSON.stringify(state.totalPrice)
       );
     },
     addToCart: (state, action: PayloadAction<IProduct>) => {
@@ -50,6 +55,7 @@ export const productSlice = createSlice({
       } else {
         state.cart = [...state.cart, { ...action.payload, quantity: 1 }];
       }
+      localStorage.setItem("basketItems", JSON.stringify(state.cart));
       productSlice.caseReducers.calculateCartCount(state);
       productSlice.caseReducers.calculateCartTotalPrice(state);
       showNotification("success", "Sebete elave olundu !");
@@ -86,17 +92,35 @@ export const productSlice = createSlice({
       }
       productSlice.caseReducers.calculateCartCount(state);
       productSlice.caseReducers.calculateCartTotalPrice(state);
+      localStorage.setItem("basketCount", JSON.stringify(state.cart));
+      localStorage.setItem("basketItems", JSON.stringify(state.cartCount));
+      localStorage.setItem(
+        "basketTotalPrice",
+        JSON.stringify(state.totalPrice)
+      );
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
       state.cart = state.cart.filter((item) => item._id !== action.payload);
       productSlice.caseReducers.calculateCartCount(state);
       productSlice.caseReducers.calculateCartTotalPrice(state);
+      localStorage.setItem("basketItems", JSON.stringify(state.cart));
+      localStorage.setItem("basketCount", JSON.stringify(state.cartCount));
+      localStorage.setItem(
+        "basketTotalPrice",
+        JSON.stringify(state.totalPrice)
+      );
       showNotification("info", "Mehsul sebetden silindi !");
     },
     clearCart: (state) => {
       state.cart = [];
       productSlice.caseReducers.calculateCartCount(state);
       productSlice.caseReducers.calculateCartTotalPrice(state);
+      localStorage.setItem("basketItems", JSON.stringify(state.cart));
+      localStorage.setItem("basketCount", JSON.stringify(state.cartCount));
+      localStorage.setItem(
+        "basketTotalPrice",
+        JSON.stringify(state.totalPrice)
+      );
     },
   },
 });
