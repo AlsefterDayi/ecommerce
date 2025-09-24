@@ -29,6 +29,7 @@ const Header = () => {
 
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const t = useTranslation().t;
+  console.log(cart)
   return (
     <header className="header">
       <div className="container">
@@ -72,7 +73,9 @@ const Header = () => {
           <FaWindowClose onClick={() => setCartIsOpen(false)} />
         </div>
         <ul className="cartList">
-          {cart.length === 0 && (
+          {
+          
+          cart.length === 0 && (
             <div className="empty">
               <p>Cart is Empty</p>
               <Link to="/shop" onClick={() => setCartIsOpen(false)}>

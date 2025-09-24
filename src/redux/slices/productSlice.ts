@@ -92,8 +92,8 @@ export const productSlice = createSlice({
       }
       productSlice.caseReducers.calculateCartCount(state);
       productSlice.caseReducers.calculateCartTotalPrice(state);
-      localStorage.setItem("basketCount", JSON.stringify(state.cart));
-      localStorage.setItem("basketItems", JSON.stringify(state.cartCount));
+      localStorage.setItem("basketItems", JSON.stringify(state.cart));
+      localStorage.setItem("basketCount", JSON.stringify(state.cartCount));
       localStorage.setItem(
         "basketTotalPrice",
         JSON.stringify(state.totalPrice)
